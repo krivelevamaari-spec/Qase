@@ -15,6 +15,7 @@ public class BaseTest {
     @BeforeEach
     public void setUp(){
         Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://app.qase.io";
 
         loginPage = new LoginPage();
         projectPage = new ProjectPage();

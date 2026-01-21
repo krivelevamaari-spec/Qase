@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -10,10 +11,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends BaseTest{
 
-
     @BeforeEach
     void openLoginPage() {
-        open("https://app.qase.io/login");
+        loginPage.openPage("/login");
     }
 
     @Test
@@ -28,13 +28,13 @@ public class LoginTest extends BaseTest{
                  .clickSignInButton();
 
         Assertions.assertAll(
-                () -> Assertions.assertFalse("Projects!!!".equals(projectPage.titleMustHaveText())),
+                () -> Assertions.assertNotEquals("Projects!!!", projectPage.titleMustHaveText()),
                 () -> Assertions.assertTrue(projectPage.titleMustHaveText().startsWith("Proj")),
                 () -> Assertions.assertEquals("Projects", projectPage.titleMustHaveText())
         );
     }
 
-    @ParameterizedTest(name = "Проверка авторизации пользователя без ввода емайл и пароля")
+    @ParameterizedTest(name = "Проверка отказа в авторизации пользователя без ввода емайл и пароля")
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test")
@@ -53,15 +53,12 @@ public class LoginTest extends BaseTest{
                 "Текст сообщения не совпадает");
     }
 
-    @ParameterizedTest(name = "Проверка авторизации пользователя с невалидными данными")
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test")
     })
-    @CsvSource({
-            "akytatmailto.plus, 20091989Qwe!!!",
-            "akytat@mailto.plus, !!!"
-    })
+    @CsvFileSource(resources = "/testData/incorrectData.csv" )
+    @ParameterizedTest(name = "Проверка отказа в авторизации пользователя с невалидным логином: {0} и паролем: {1}")
     void alertErrorMessageShouldBeVisibleWithEnterInvalidData(String email, String password){
         loginPage.setValueEmailInput(email)
                  .setValuePasswordInput(password)
