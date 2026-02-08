@@ -4,6 +4,7 @@ import io.qameta.allure.*;
 import io.restassured.response.ValidatableResponse;
 import models.CreateProjectFactory;
 import models.request.project.post.ProjectRequestModel;
+import models.responce.project.get.ProjectGetResponseModel;
 import models.responce.project.post.ErrorWhileCreateProjectWithInvalidData;
 import models.responce.project.post.ProjectCreateResponseModel;
 import models.responce.project.delete.ProjectDeleteResponseModel;
@@ -17,6 +18,7 @@ import tests.api.steps.ProjectSteps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static tests.api.steps.ProjectSteps.deleteProject;
+import static tests.api.steps.ProjectSteps.getProjects;
 
 @Owner("mkarpovich")
 @Feature("Project")
@@ -24,12 +26,13 @@ import static tests.api.steps.ProjectSteps.deleteProject;
 public class ApiProjectTest extends BaseTest {
 
     @Test
-    @DisplayName("Проверка создания нового проекта с валидными данными")
-    @Story("Успешное создание нового проекта")
+    @DisplayName("Проверка создания нового проекта с валидным телом запроса")
+    @Story("Создание проекта через API")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
-            @Tag("API-test")
+            @Tag("API-test"),
+            @Tag("Project")
     })
     void projectMustBeCreatedWithApi() {
         ProjectRequestModel data = CreateProjectFactory.getRandomData();
@@ -48,13 +51,12 @@ public class ApiProjectTest extends BaseTest {
 
     @Test
     @DisplayName("Проверка удаления проекта")
-    @Story("Удаление проекта, " +
-            "Как пользователь, я хочу иметь возможность удалять ненужные проекты," +
-            " чтобы поддерживать список в актуальном состоянии")
+    @Story("Удаление проекта через API")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
-            @Tag("API-test")
+            @Tag("API-test"),
+            @Tag("Project")
     })
     void projectMustBeDeletedWithApi() {
         ProjectRequestModel data = CreateProjectFactory.getRandomData();
@@ -71,12 +73,13 @@ public class ApiProjectTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка получения сообщения об ошибке при вводе некорректных данных при создании проекта")
-    @Story("Отображение сообщения об ошибке при вводе некорректных данных в форме создания проекта")
-    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Проверка создания проекта с невалидным телом запроса")
+    @Story("Создание проекта через API")
+    @Severity(SeverityLevel.NORMAL)
     @Tags({
-            @Tag("BLOCKER"),
-            @Tag("API-test")
+            @Tag("NORMAL"),
+            @Tag("API-test"),
+            @Tag("Project")
     })
     void projectMustBeNotCreatedWithApi() {
         ProjectRequestModel invalidData = CreateProjectFactory.getWrongRandomData();
@@ -91,15 +94,15 @@ public class ApiProjectTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("")
-    @Story("")
-    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Проверка удаления проекта с невалидным или пустым идентификатором")
+    @Story("Удаление проекта через API")
+    @Severity(SeverityLevel.NORMAL)
     @Tags({
-            @Tag("BLOCKER"),
-            @Tag("API-test")
+            @Tag("NORMAL"),
+            @Tag("API-test"),
+            @Tag("Project")
     })
     void projectMustBeNotDeletedWithInvalidOrEmptyProjectCode() {
-
         ErrorWhileCreateProjectWithInvalidData deleteResponse = deleteProject("LOL", 404)
                 .extract()
                 .as(ErrorWhileCreateProjectWithInvalidData.class);
@@ -108,5 +111,24 @@ public class ApiProjectTest extends BaseTest {
                 .isNotNull()
                 .extracting(ErrorWhileCreateProjectWithInvalidData::getErrorMessage)
                 .isEqualTo("Project not found");
+    }
+
+    @Test
+    @DisplayName("Проверка успешного статуса в ответе при получении списка проектов")
+    @Story("Получение списка проектов")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({
+            @Tag("NORMAL"),
+            @Tag("API-test"),
+            @Tag("Project")
+    })
+    void getAllProjectsAndVerifyStatus() {
+        ProjectGetResponseModel response = getProjects()
+                .extract().as(ProjectGetResponseModel.class);
+
+        assertThat(response)
+                .isNotNull()
+                .extracting(ProjectGetResponseModel::isStatus)
+                .isEqualTo(true);
     }
 }

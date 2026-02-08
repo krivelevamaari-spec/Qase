@@ -1,9 +1,9 @@
-package models.responce.project.get;
+package models.responce.suite.get;
 
 import lombok.Data;
 
 @Data
-public class Root{
+public class SuiteGetSuitesResponseModel {
     private boolean status;
     private Result result;
 }

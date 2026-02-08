@@ -16,17 +16,18 @@ public class ProjectTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        step("Открыть страницу авторизации");
-        loginPage.openPage("/login");
+        step("Открыть страницу авторизации",
+                ()-> loginPage.openPage("/login"));
     }
 
     @Test
     @DisplayName("Проверка создания нового проекта с валидными данными")
-    @Story("Успешное создание нового проекта")
+    @Story("Создание нового проекта")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("UI-test"),
+            @Tag("Project")
     })
     public void projectMustBeCreated() {
         loginPage.setValueEmailInput("akytat@mailto.plus")
@@ -39,8 +40,6 @@ public class ProjectTest extends BaseTest {
         String expectedProjectCode = createProject.getCode();
 
         projectPage.createProject(createProject)
-                .checkRadioButtonPrivate()
-                .chekRadioButtonPublic()
                 .clickSaveProjectButton()
                 .checkThatTheProjectHasBeenCreated(expectedProjectCode);
 
@@ -48,12 +47,13 @@ public class ProjectTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка получения сообщения об ошибке при вводе некорректных данных при создании проекта")
-    @Story("Отображение сообщения об ошибке при вводе некорректных данных в форме создания проекта")
-    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Проверка валидации полей при создании проекта с некорректными данными")
+    @Story("Обработка ошибок при создании проекта")
+    @Severity(SeverityLevel.NORMAL)
     @Tags({
-            @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("NORMAL"),
+            @Tag("UI-test"),
+            @Tag("Project")
     })
     public void projectMustBeNotCreated() {
         loginPage.setValueEmailInput("akytat@mailto.plus")
@@ -65,19 +65,18 @@ public class ProjectTest extends BaseTest {
         ProjectRequestModel notCreateProject = CreateProjectFactory.getWrongRandomData();
 
         projectPage.createProject(notCreateProject)
-                .checkRadioButtonPrivate()
-                .chekRadioButtonPublic()
                 .clickSaveProjectButton()
                 .checkThatTheProjectHasBeenNotCreated();
     }
 
     @Test
-    @DisplayName("Проверка удаления созданного проекта")
-    @Story("Успешное удаление  созданного проекта")
+    @DisplayName("Проверка удаления проекта")
+    @Story("Удаление проекта")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("UI-test"),
+            @Tag("Project")
     })
     public void projectMustBeDeleted() {
         loginPage.setValueEmailInput("akytat@mailto.plus")

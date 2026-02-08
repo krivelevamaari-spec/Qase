@@ -32,7 +32,7 @@ public class ProjectSteps {
                 .spec(REQ_SPEC)
                 .delete(path + "/" + projectCode.toUpperCase())
                 .then()
-                .spec(responseWithStatusCode(statusCode));
+                .spec(responseWithStatusCode(200));
 
     }
 
@@ -59,5 +59,14 @@ public class ProjectSteps {
                 .extract()
                 .jsonPath()
                 .getList("data", Entity.class);
+    }
+
+    @Step("Отправка GET-запроса на получение списка проектов")
+    public static ValidatableResponse getProjects() {
+        return given()
+                .spec(REQ_SPEC)
+                .get(path)
+                .then()
+                .spec(responseWithStatusCode(200));
     }
 }

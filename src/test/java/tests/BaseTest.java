@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import pages.LoginPage;
 import pages.ProjectPage;
+import pages.SuitePage;
 import tests.api.steps.ProjectSteps;
 
 public class BaseTest {
@@ -18,6 +19,7 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected ProjectPage projectPage;
     protected CreateProjectFactory projectFactory;
+    protected SuitePage suitePage;
     protected String email = Credentials.config.getEmail();
     protected String password = Credentials.config.getPassword();
 
@@ -32,5 +34,6 @@ public class BaseTest {
         loginPage = new LoginPage();
         projectPage = new ProjectPage();
         projectFactory = new CreateProjectFactory();
+        suitePage = new SuitePage();
     }
 }

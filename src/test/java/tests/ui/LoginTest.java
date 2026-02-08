@@ -17,17 +17,18 @@ public class LoginTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        step("Открыть страницу авторизации");
-        loginPage.openPage("/login");
+        step("Открыть страницу авторизации",
+                () ->  loginPage.openPage("/login"));
     }
 
     @Test
-    @DisplayName("Проверка авторизации пользователя при валидных логине и пароле")
-    @Story("Успешная авторизация с корректными учетными данными")
+    @DisplayName("Проверка успешной авторизации пользователя при валидных логине и пароле")
+    @Story("Вход по логину и паролю")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("UI-test"),
+            @Tag("Authorization")
     })
     public void userMustBeAutWithValidLoginAndPassword() {
         loginPage.setValueEmailInput("akytat@mailto.plus")
@@ -43,11 +44,12 @@ public class LoginTest extends BaseTest {
         });
     }
 
-    @Story("Неудачная попытка входа с невалидными учетными данными")
-    @Severity(SeverityLevel.BLOCKER)
+    @Story("Валидация полей ввода")
+    @Severity(SeverityLevel.NORMAL)
     @Tags({
-            @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("NORMAL"),
+            @Tag("UI-test"),
+            @Tag("Authorization")
     })
     @CsvSource({
             ", 20091989Qwe!!!",
@@ -67,11 +69,12 @@ public class LoginTest extends BaseTest {
         );
     }
 
-    @Story("Неудачная попытка входа с некорректными учетными данными")
-    @Severity(SeverityLevel.BLOCKER)
+    @Story("Валидация полей ввода")
+    @Severity(SeverityLevel.NORMAL)
     @Tags({
-            @Tag("BLOCKER"),
-            @Tag("UI-test")
+            @Tag("NORMAL"),
+            @Tag("UI-test"),
+            @Tag("Authorization")
     })
     @CsvFileSource(resources = "/testData/loginTestData/incorrectDates.scv")
     @ParameterizedTest(name = "Проверка получения сообщения об ошибке при попытке авторизации пользователя " +

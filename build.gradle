@@ -17,7 +17,7 @@ repositories {
 dependencies {
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "com.fasterxml.jackson.core:jackson-databind:2.21.0"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
 
     testImplementation (platform("org.junit:junit-bom:$junitVersion"),
             "org.junit.jupiter:junit-jupiter",
@@ -25,13 +25,37 @@ dependencies {
             "io.qameta.allure:allure-selenide:$allureVersion",
             "com.codeborne:selenide:$selenideVersion",
             "com.github.javafaker:javafaker:$javafakerVersion",
-            "org.assertj:assertj-core:3.27.6",
-            "io.rest-assured:rest-assured:6.0.0",
-            "io.qameta.allure:allure-rest-assured:2.32.0",
-            "org.aeonbits.owner:owner:1.0.4")
+            "org.assertj:assertj-core:$assertjVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "io.qameta.allure:allure-rest-assured:$allureVersion",
+            "org.aeonbits.owner:owner:$ownerVersion")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher",
             "org.aspectj:aspectjweaver:$aspectjweaverVersion")
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform {
+        if (System.getProperty("tag") != null && !System.getProperty("tag").toString().isEmpty()) includeTags System.getProperty("tag").toString()
+    }
+
+    if (System.getProperty("threads") != null) {
+        systemProperties += [
+                'junit.jupiter.execution.parallel.enabled'                 : true,
+                'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+                'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+                'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+                'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads").toInteger()
+        ]
+    }
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
 }
 
 test {
