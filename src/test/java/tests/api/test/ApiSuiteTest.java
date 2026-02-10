@@ -7,8 +7,9 @@ import models.CreateSuiteFactory;
 import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import models.responce.project.get.ProjectGetResponseModel;
+import models.responce.suite.delete.Result;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
-import models.responce.suite.get.Result;
+
 import models.responce.suite.get.SuiteGetSuitesResponseModel;
 import org.assertj.core.api.AbstractObjectAssert;
 import org.junit.jupiter.api.DisplayName;
@@ -75,7 +76,7 @@ public class ApiSuiteTest extends BaseTest {
                 .isNotNull()
                 .extracting(SuiteDeleteResponseModel::getResult)
                 .extracting(Result::getId)
-                .isEqualTo(suiteResponse.getResult().getId());
+                .isEqualTo(suiteId);
     }
 
     @Test
@@ -97,6 +98,6 @@ public class ApiSuiteTest extends BaseTest {
 
         AbstractObjectAssert<?, Integer> count = assertThat(suiteResponse)
                 .extracting(SuiteGetSuitesResponseModel::getResult)
-                .extracting(Result::getCount);
+                .extracting(models.responce.suite.get.Result::getCount);
     }
 }
