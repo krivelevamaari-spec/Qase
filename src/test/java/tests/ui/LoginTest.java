@@ -37,8 +37,7 @@ public class LoginTest extends BaseTest {
 
         step("Ожидаемый результат: открыта страница Projects", () -> {
             Assertions.assertAll(
-                    () -> Assertions.assertNotEquals("Projects!!!", projectPage.titleMustHaveText()),
-                    () -> Assertions.assertTrue(projectPage.titleMustHaveText().startsWith("Proj")),
+                    () -> Assertions.assertTrue(projectPage.isTitleVisible()),
                     () -> Assertions.assertEquals("Projects", projectPage.titleMustHaveText())
             );
         });

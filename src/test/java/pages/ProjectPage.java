@@ -34,6 +34,11 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
+    @Step("Получить заголовок страницы")
+    public boolean isTitleVisible() {
+        return PROJECT_PAGE_TITLE.is(visible);
+    }
+
     @Step("Получить заголовок страницы проекта")
     public String titleMustHaveText() {
         return PROJECT_PAGE_TITLE.shouldBe(visible).getText();
