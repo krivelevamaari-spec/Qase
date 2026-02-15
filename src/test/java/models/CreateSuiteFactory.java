@@ -1,7 +1,6 @@
 package models;
 
 import com.github.javafaker.Faker;
-import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 
 public class CreateSuiteFactory {

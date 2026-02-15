@@ -36,7 +36,8 @@ public class ProjectPage extends BasePage {
 
     @Step("Получить заголовок страницы")
     public boolean isTitleVisible() {
-        return PROJECT_PAGE_TITLE.is(visible);
+         PROJECT_PAGE_TITLE.shouldBe(visible);
+         return true;
     }
 
     @Step("Получить заголовок страницы проекта")

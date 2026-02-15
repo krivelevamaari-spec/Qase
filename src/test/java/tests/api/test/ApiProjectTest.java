@@ -4,10 +4,10 @@ import io.qameta.allure.*;
 import io.restassured.response.ValidatableResponse;
 import models.CreateProjectFactory;
 import models.request.project.post.ProjectRequestModel;
+import models.responce.project.delete.ProjectDeleteResponseModel;
 import models.responce.project.get.ProjectGetResponseModel;
 import models.responce.project.post.ErrorWhileCreateProjectWithInvalidData;
 import models.responce.project.post.ProjectCreateResponseModel;
-import models.responce.project.delete.ProjectDeleteResponseModel;
 import models.responce.project.post.Result;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -61,6 +61,7 @@ public class ApiProjectTest extends BaseTest {
     void projectMustBeDeletedWithApi() {
         ProjectRequestModel data = CreateProjectFactory.getRandomData();
         ValidatableResponse response = ProjectSteps.createProject(data, 200);
+
         ProjectCreateResponseModel projectCreateResponseModel = response.extract().as(ProjectCreateResponseModel.class);
         ProjectDeleteResponseModel deleteResponse = deleteProject(projectCreateResponseModel.getResult().getCode(), 200)
                 .extract()
@@ -123,7 +124,7 @@ public class ApiProjectTest extends BaseTest {
             @Tag("Project")
     })
     void getAllProjectsAndVerifyStatus() {
-        ProjectGetResponseModel response = getProjects()
+        ProjectGetResponseModel response = getProjects(200)
                 .extract().as(ProjectGetResponseModel.class);
 
         assertThat(response)

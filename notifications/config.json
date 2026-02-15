@@ -1,0 +1,21 @@
+{
+  "base": {
+    "logo": "",
+    "project": "",
+    "environment": "",
+    "comment": "",
+    "reportLink": "",
+    "language": "ru",
+    "allureFolder": "build/reports/allure-report/allureReport",
+    "enableChart": true,
+    "enableSuitesPublishing": false,
+    "customData": {}
+  },
+  "telegram": {
+    "token": "8499636376:AAEheGn7soYJZh2jxB53IKne-tzbP9ecMVs",
+    "chat": "1328335908",
+    "topic": "",
+    "replyTo": "",
+    "templatePath": "/templates/telegram.ftl"
+  }
+}

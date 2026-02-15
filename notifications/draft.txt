@@ -1,0 +1,11 @@
+Token 8499636376:AAEheGn7soYJZh2jxB53IKne-tzbP9ecMVs
+id 1328335908
+
+
+curl https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getUpdates | -r '.result[].message.chat.id'
+b. OR, run bot.rb and @-mention your bot in the chat. The chat id will appear in bot.rb's output.
+The bot may need temporary message access: @BotFather > Bot Settings > Group Privacy > Turn off
+Send a message using the HTTP API: https://core.telegram.org/bots/api#sendmessage
+curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "1328335908", "text": "This is a test from curl", "disable_notification": true}' https://api.telegram.org/bot8499636376:AAEheGn7soYJZh2jxB53IKne-tzbP9ecMVs/sendMessage
+
+      https://api.telegram.org/bot8499636376:AAEheGn7soYJZh2jxB53IKne-tzbP9ecMVs/getUpdates

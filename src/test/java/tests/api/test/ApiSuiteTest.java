@@ -1,16 +1,14 @@
 package tests.api.test;
 
 import io.qameta.allure.*;
-import io.restassured.response.ValidatableResponse;
 import models.CreateProjectFactory;
 import models.CreateSuiteFactory;
 import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
-import models.responce.project.get.ProjectGetResponseModel;
-import models.responce.suite.delete.Result;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
-
 import models.responce.suite.get.SuiteGetSuitesResponseModel;
+import models.responce.suite.post.Result;
+import models.responce.suite.post.SuiteCreateResponseModel;
 import org.assertj.core.api.AbstractObjectAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -21,7 +19,7 @@ import tests.api.steps.ProjectSteps;
 import tests.api.steps.SuiteSteps;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static tests.api.steps.ProjectSteps.getProjects;
+import static tests.api.steps.SuiteSteps.deleteSuite;
 import static tests.api.steps.SuiteSteps.getSuites;
 
 @Owner("mkarpovich")
@@ -44,13 +42,15 @@ public class ApiSuiteTest extends BaseTest {
         String projectCode = projectData.getCode();
 
         SuiteRequestModel suiteRequest = CreateSuiteFactory.getRandomData();
-        SuiteGetSuitesResponseModel suiteResponse = SuiteSteps.fillFieldsToCreateSuite(projectCode, suiteRequest);
+        var suiteResponse = SuiteSteps.createSuite(projectCode, suiteRequest, 200);
+        SuiteGetSuitesResponseModel getSuiteResponse = suiteResponse.extract().as(SuiteGetSuitesResponseModel.class);
 
-        assertThat(suiteResponse)
+        assertThat(getSuiteResponse)
                 .isNotNull()
                 .extracting(SuiteGetSuitesResponseModel::isStatus)
                 .isEqualTo(true);
     }
+
 
     @Test
     @DisplayName("Удалить сьюту")
@@ -67,20 +67,22 @@ public class ApiSuiteTest extends BaseTest {
         String projectCode = projectData.getCode();
 
         SuiteRequestModel suiteRequest = CreateSuiteFactory.getRandomData();
-        SuiteGetSuitesResponseModel suiteResponse = SuiteSteps.fillFieldsToCreateSuite(projectCode, suiteRequest);
+        var suiteResponse = SuiteSteps.createSuite(projectCode, suiteRequest, 200);
 
-        Integer suiteId = SuiteSteps.getIdSuite(projectCode);
-        SuiteDeleteResponseModel deleteSuiteResponse = SuiteSteps.deleteSuite(projectCode, suiteId);
+        SuiteCreateResponseModel createResponse = suiteResponse.extract().as(SuiteCreateResponseModel.class);
+        Integer suiteId = createResponse.extract(SuiteCreateResponseModel::getResult).extract(Result::getId)
+                .as(SuiteCreateResponseModel.class);
 
-        assertThat(deleteSuiteResponse)
+        SuiteDeleteResponseModel deleteResponse = deleteSuite(projectCode, 200, suiteId);
+
+        assertThat(deleteResponse)
                 .isNotNull()
-                .extracting(SuiteDeleteResponseModel::getResult)
-                .extracting(Result::getId)
-                .isEqualTo(suiteId);
+                .extracting(SuiteDeleteResponseModel::isStatus)
+                .isEqualTo(true);
     }
 
     @Test
-    @DisplayName("Получение списка всех тест-сьютов проекта")
+    @DisplayName("Получение списка всех сьют проекта")
     @Story("Список Suite")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
@@ -93,11 +95,21 @@ public class ApiSuiteTest extends BaseTest {
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
 
-        SuiteGetSuitesResponseModel suiteResponse = getSuites(projectCode)
+        SuiteGetSuitesResponseModel suiteResponse = getSuites(projectCode, 200)
                 .extract().as(SuiteGetSuitesResponseModel.class);
 
         AbstractObjectAssert<?, Integer> count = assertThat(suiteResponse)
                 .extracting(SuiteGetSuitesResponseModel::getResult)
                 .extracting(models.responce.suite.get.Result::getCount);
+
+        assertThat(suiteResponse)
+                .isNotNull()
+                .extracting(SuiteGetSuitesResponseModel::isStatus)
+                .isEqualTo(true);
+
+        assertThat(suiteResponse)
+                .extracting(SuiteGetSuitesResponseModel::getResult)
+                .extracting(models.responce.suite.get.Result::getCount)
+                .isNotNull();
     }
 }

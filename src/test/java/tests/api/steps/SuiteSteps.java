@@ -12,47 +12,35 @@ import static tests.api.specs.QASESpec.responseWithStatusCode;
 
 public class SuiteSteps {
 
-    static String path = "/project/";
+    static String path = "/suite/";
 
     @Step("Заполнить поля сьюты рандомными данными")
-    public static SuiteGetSuitesResponseModel fillFieldsToCreateSuite(String projectCode, SuiteRequestModel SuiteRequest) {
+    public static ValidatableResponse createSuite(String projectCode, SuiteRequestModel suiteRequest,
+                                                  Integer statusCode) {
         return given()
                 .spec(REQ_SPEC)
-                .body(SuiteRequest)
+                .body(suiteRequest)
                 .post(path + projectCode.toUpperCase())
                 .then()
-                .spec(responseWithStatusCode(200))
-                .extract().as(SuiteGetSuitesResponseModel.class);
+                .spec(responseWithStatusCode(statusCode));
     }
 
     @Step("Отправка GET-запроса на получение списка сьют")
-    public static ValidatableResponse getSuites(String projectCode) {
+    public static ValidatableResponse getSuites(String projectCode, Integer statusCode) {
         return given()
                 .spec(REQ_SPEC)
                 .get(path + projectCode.toUpperCase())
                 .then()
-                .spec(responseWithStatusCode(200));
-    }
-
-    @Step("Получить ID сьюты")
-    public static Integer getIdSuite(String projectCode) {
-        return given()
-                .spec(REQ_SPEC)
-                .get(path + projectCode.toUpperCase())
-                .then()
-                .spec(responseWithStatusCode(200))
-                .extract()
-                .jsonPath()
-                .getInt("result.entities[0].id");
+                .spec(responseWithStatusCode(statusCode));
     }
 
     @Step("Удалить сьюту")
-    public static SuiteDeleteResponseModel deleteSuite(String projectCode, Integer suiteId) {
+    public static SuiteDeleteResponseModel deleteSuite(String projectCode, Integer statusCode, Integer suiteId) {
         return given()
                 .spec(REQ_SPEC)
                 .delete(path + projectCode.toUpperCase() + suiteId)
                 .then()
-                .spec(responseWithStatusCode(200))
+                .spec(responseWithStatusCode(statusCode))
                 .extract().as(SuiteDeleteResponseModel.class);
     }
 }

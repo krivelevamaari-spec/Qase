@@ -5,6 +5,7 @@ import models.CreateProjectFactory;
 import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
+import tests.api.steps.ProjectSteps;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -30,8 +31,8 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeCreated() {
-        loginPage.setValueEmailInput("akytat@mailto.plus")
-                .setValuePasswordInput("20091989Qwe!!!")
+        loginPage.setValueEmailInput(email)
+                .setValuePasswordInput(password)
                 .clickSignInButton();
 
         projectPage.clickCreateProjectButton();
@@ -56,8 +57,8 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeNotCreated() {
-        loginPage.setValueEmailInput("akytat@mailto.plus")
-                .setValuePasswordInput("20091989Qwe!!!")
+        loginPage.setValueEmailInput(email)
+                .setValuePasswordInput(password)
                 .clickSignInButton();
 
         projectPage.clickCreateProjectButton();
@@ -79,19 +80,17 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeDeleted() {
-        loginPage.setValueEmailInput("akytat@mailto.plus")
-                .setValuePasswordInput("20091989Qwe!!!")
+        loginPage.setValueEmailInput(email)
+                .setValuePasswordInput(password)
                 .clickSignInButton();
 
-        projectPage.clickCreateProjectButton();
+        ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
+        String projectTitle = projectData.getTitle();
 
-        ProjectRequestModel createProject = CreateProjectFactory.getRandomData();
-        String projectTitle = createProject.getTitle();
+        ProjectSteps.createProject(projectData, 200);
 
-        projectPage.createProject(createProject)
-                        .clickSaveProjectButton()
-                        .openProjectPage()
-                        .deleteCreatedProject()
-                        .checkThatProjectIsDeleted(projectTitle);
+        projectPage.openProjectPage()
+                .deleteCreatedProject()
+                .checkThatProjectIsDeleted(projectTitle);
     }
 }

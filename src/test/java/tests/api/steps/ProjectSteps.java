@@ -32,41 +32,15 @@ public class ProjectSteps {
                 .spec(REQ_SPEC)
                 .delete(path + "/" + projectCode.toUpperCase())
                 .then()
-                .spec(responseWithStatusCode(200));
-
-    }
-
-    @Step("Получить проект из списка")
-    public static List<EntitiesItem> getProjectFromList() {
-        final String JSON_PATH = "result.entities";
-        return given()
-                .spec(REQ_SPEC)
-                .get(path)
-                .then()
-                .spec(responseWithStatusCode(200))
-                .extract()
-                .jsonPath()
-                .getList(JSON_PATH, EntitiesItem.class);
-    }
-
-    @Step("Получить список проектов")
-    public static  List<Entity> getListProjects() {
-        return given()
-                .spec(REQ_SPEC)
-                .get(path)
-                .then()
-                .spec(responseWithStatusCode(200))
-                .extract()
-                .jsonPath()
-                .getList("data", Entity.class);
+                .spec(responseWithStatusCode(statusCode));
     }
 
     @Step("Отправка GET-запроса на получение списка проектов")
-    public static ValidatableResponse getProjects() {
+    public static ValidatableResponse getProjects(Integer statusCode) {
         return given()
                 .spec(REQ_SPEC)
                 .get(path)
                 .then()
-                .spec(responseWithStatusCode(200));
+                .spec(responseWithStatusCode(statusCode));
     }
 }

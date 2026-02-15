@@ -19,7 +19,7 @@ public class QASESpec {
             .log().uri()
             .log().body()
             .contentType(JSON)
-            .header("Token", "ae91de7e606be145c645a978f840b0158f90755e544f1f241e4f88eaef7e0edf");
+            .header("Token", Credentials.config.getToken());
 
     public static final ResponseSpecification responseWithStatusCode(int statusCode) {
         return new ResponseSpecBuilder()

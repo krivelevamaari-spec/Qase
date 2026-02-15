@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import pages.pageElements.Button;
 
@@ -13,7 +12,7 @@ import static pages.pageElements.Input.fillInputWithData;
 public class SuitePage extends BasePage {
 
     private static final SelenideElement SUITE_LABEL = $x("//h3[text()='Suites']");
-    private static final SelenideElement PRECONDITIONS_INPUT = $(".ProseMirror-trailingBreak");
+    private static final SelenideElement PRECONDITIONS_INPUT = $("#preconditions");
     private static final SelenideElement DESCRIPTION = $("#description");
     private static final SelenideElement DELETE_SUITE_BUTTON = $x("//button[@aria-label='Delete suite']");
     private static final SelenideElement CREATE_NEW_SUITE_BUTTON = $x("//button[.//span[normalize-space()='Create new suite']]");

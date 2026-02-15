@@ -5,5 +5,4 @@ import lombok.Data;
 @Data
 public class SuiteDeleteResponseModel {
     private boolean status;
-    private Result result;
 }

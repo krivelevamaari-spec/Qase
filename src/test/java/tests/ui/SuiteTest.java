@@ -19,7 +19,7 @@ public class SuiteTest extends BaseTest {
     @BeforeEach
     void openLoginPage() {
         step("Открыть страницу авторизации",
-                ()-> loginPage.openPage("/login"));
+                () -> loginPage.openPage("/login"));
     }
 
     @Test
