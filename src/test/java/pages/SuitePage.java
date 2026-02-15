@@ -26,8 +26,8 @@ public class SuitePage extends BasePage {
     @Step("Создать сьюту")
     public SuitePage fillFieldsToCreateSuite(SuiteRequestModel data) {
         fillInputWithData("For example: Web Application", data.getTitle());
-        PRECONDITIONS_INPUT.setValue(data.getPreconditions());
-        DESCRIPTION.setValue(data.getDescription());
+        PRECONDITIONS_INPUT.press(data.getPreconditions());
+        DESCRIPTION.press(data.getDescription());
         return this;
     }
 

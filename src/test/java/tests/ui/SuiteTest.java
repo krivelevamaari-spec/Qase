@@ -8,6 +8,7 @@ import models.request.suite.post.SuiteRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
 import tests.api.steps.ProjectSteps;
+import tests.api.steps.SuiteSteps;
 
 import static io.qameta.allure.Allure.step;
 
@@ -47,6 +48,8 @@ public class SuiteTest extends BaseTest {
                 .fillFieldsToCreateSuite(suiteData)
                 .clickCreateButton()
                 .checkTheSuiteIsCreated();
+
+        projectFactory.deleteProject(projectCode, 200);
     }
 
     @Test
@@ -67,12 +70,10 @@ public class SuiteTest extends BaseTest {
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
 
-        SuiteRequestModel suiteData = CreateSuiteFactory.getRandomData();
+        SuiteRequestModel suiteRequest = CreateSuiteFactory.getRandomData();
+        var suiteResponse = SuiteSteps.createSuite(projectCode, suiteRequest, 200);
 
         suitePage.openSuitePage(projectCode.toUpperCase())
-                .fillFieldsToCreateSuite(suiteData)
-                .clickCreateButton()
-                .checkTheSuiteIsCreated()
                 .deleteSuite()
                 .checkTheSuiteIsDeleted();
     }

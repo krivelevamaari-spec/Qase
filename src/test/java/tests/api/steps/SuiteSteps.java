@@ -38,7 +38,7 @@ public class SuiteSteps {
     public static SuiteDeleteResponseModel deleteSuite(String projectCode, Integer statusCode, Integer suiteId) {
         return given()
                 .spec(REQ_SPEC)
-                .delete(path + projectCode.toUpperCase() + suiteId)
+                .delete(path + projectCode.toUpperCase() + "/" + suiteId)
                 .then()
                 .spec(responseWithStatusCode(statusCode))
                 .extract().as(SuiteDeleteResponseModel.class);

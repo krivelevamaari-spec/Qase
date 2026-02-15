@@ -70,8 +70,7 @@ public class ApiSuiteTest extends BaseTest {
         var suiteResponse = SuiteSteps.createSuite(projectCode, suiteRequest, 200);
 
         SuiteCreateResponseModel createResponse = suiteResponse.extract().as(SuiteCreateResponseModel.class);
-        Integer suiteId = createResponse.extract(SuiteCreateResponseModel::getResult).extract(Result::getId)
-                .as(SuiteCreateResponseModel.class);
+        Integer suiteId = createResponse.getResult().getId();
 
         SuiteDeleteResponseModel deleteResponse = deleteSuite(projectCode, 200, suiteId);
 
