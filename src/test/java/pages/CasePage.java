@@ -11,15 +11,11 @@ import static com.codeborne.selenide.Selenide.$x;
 
 public class CasePage extends BasePage{
 
-    private static final SelenideElement BUTTON_CREATE_SUITE_OR_CASE =
-            $x("//button[@aria-label='Create suite or case']");
-    private static final SelenideElement BUTTON_CREATE_CASE = $("a[href*='/create/']");
     private static final SelenideElement TITLE_CASE_PAGE = $x("//h1[text()='Create test case']");
 
     @Step("Открыть форму создания кейса")
     public CasePage openCaseCreation() {
-        BUTTON_CREATE_SUITE_OR_CASE.shouldBe(visible).click();
-        BUTTON_CREATE_CASE.shouldBe(visible).click();
+        Button.clickButton("Create new case");
         return this;
     }
 

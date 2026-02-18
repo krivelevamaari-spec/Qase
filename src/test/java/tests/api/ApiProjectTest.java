@@ -1,4 +1,4 @@
-package tests.api.test;
+package tests.api;
 
 import io.qameta.allure.*;
 import io.restassured.response.ValidatableResponse;
@@ -9,21 +9,25 @@ import models.responce.project.get.ProjectGetResponseModel;
 import models.responce.project.post.ErrorWhileCreateProjectWithInvalidData;
 import models.responce.project.post.ProjectCreateResponseModel;
 import models.responce.project.post.Result;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import tests.api.steps.ProjectSteps;
+import api.specs.steps.ProjectSteps;
 
+import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
-import static tests.api.steps.ProjectSteps.deleteProject;
-import static tests.api.steps.ProjectSteps.getProjects;
+import static api.specs.steps.ProjectSteps.deleteProject;
+import static api.specs.steps.ProjectSteps.getProjects;
 
 @Owner("mkarpovich")
 @Feature("Project")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class ApiProjectTest extends BaseTest {
+
+    @BeforeEach
+    void deleteAllProjectsIfNeed() {
+        step("Удалить все существующие проекты",
+                ()-> projectPage.deleteAllProjects());
+    }
 
     @Test
     @DisplayName("Проверка создания нового проекта с валидным телом запроса")

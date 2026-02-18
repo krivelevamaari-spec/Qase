@@ -1,7 +1,5 @@
 package tests;
 
-import com.codeborne.selenide.Browsers;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.Credentials;
 import driver.UIDriver;
@@ -9,10 +7,10 @@ import io.qameta.allure.selenide.AllureSelenide;
 import models.CreateProjectFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import pages.CasePage;
 import pages.LoginPage;
 import pages.ProjectPage;
 import pages.SuitePage;
-import tests.api.steps.ProjectSteps;
 
 public class BaseTest {
 
@@ -20,6 +18,7 @@ public class BaseTest {
     protected ProjectPage projectPage;
     protected CreateProjectFactory projectFactory;
     protected SuitePage suitePage;
+    protected CasePage casePage;
     protected String email = Credentials.config.getEmail();
     protected String password = Credentials.config.getPassword();
 
@@ -35,5 +34,6 @@ public class BaseTest {
         projectPage = new ProjectPage();
         projectFactory = new CreateProjectFactory();
         suitePage = new SuitePage();
+        casePage = new CasePage();
     }
 }

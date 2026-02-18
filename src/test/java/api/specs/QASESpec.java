@@ -1,4 +1,4 @@
-package tests.api.specs;
+package api.specs;
 
 import config.Credentials;
 import config.Driver;

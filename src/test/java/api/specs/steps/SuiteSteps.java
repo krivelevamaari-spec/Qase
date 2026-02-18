@@ -1,14 +1,13 @@
-package tests.api.steps;
+package api.specs.steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import models.request.suite.post.SuiteRequestModel;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
-import models.responce.suite.get.SuiteGetSuitesResponseModel;
 
 import static io.restassured.RestAssured.given;
-import static tests.api.specs.QASESpec.REQ_SPEC;
-import static tests.api.specs.QASESpec.responseWithStatusCode;
+import static api.specs.QASESpec.REQ_SPEC;
+import static api.specs.QASESpec.responseWithStatusCode;
 
 public class SuiteSteps {
 

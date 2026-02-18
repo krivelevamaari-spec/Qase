@@ -7,8 +7,8 @@ import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import tests.api.steps.ProjectSteps;
-import tests.api.steps.SuiteSteps;
+import api.specs.steps.ProjectSteps;
+import api.specs.steps.SuiteSteps;
 
 import static io.qameta.allure.Allure.step;
 
@@ -16,6 +16,12 @@ import static io.qameta.allure.Allure.step;
 @Feature("Suite")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class SuiteTest extends BaseTest {
+
+    @BeforeEach
+    void deleteAllProjectsIfNeed() {
+        step("Удалить все существующие проекты",
+                ()-> projectPage.deleteAllProjects());
+    }
 
     @BeforeEach
     void openLoginPage() {

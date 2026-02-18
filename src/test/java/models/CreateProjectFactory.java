@@ -3,7 +3,7 @@ package models;
 
 import models.request.project.post.ProjectRequestModel;
 import com.github.javafaker.Faker;
-import tests.api.steps.ProjectSteps;
+import api.specs.steps.ProjectSteps;
 
 public class CreateProjectFactory {
 

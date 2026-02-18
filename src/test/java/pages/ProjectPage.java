@@ -17,7 +17,7 @@ public class ProjectPage extends BasePage {
     private static final SelenideElement SAVE_PROJECT_BUTTON =
             $x("//button[.//span[text()='Create project']]");
     private static final SelenideElement DESCRIPTION_TEXT_AREA = $("#description-area");
-    private static final SelenideElement TITLE_CREATED_PROJECT = $("h1[class*='pOpqJc']");
+    private static final SelenideElement TITLE_CREATED_PROJECT = $x("//div[@id='application-content']//h1");
     private static final SelenideElement ERROR_MESSAGE = $(".FKqFlv");
     private static final SelenideElement BURGER_MENU = $("button[aria-label='Open action menu']");
     private static final SelenideElement REMOVE_BUTTON = $x("//*[@data-testid='remove']");

@@ -1,4 +1,4 @@
-package tests.api.test;
+package tests.api;
 
 import io.qameta.allure.*;
 import models.CreateProjectFactory;
@@ -7,25 +7,27 @@ import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
 import models.responce.suite.get.SuiteGetSuitesResponseModel;
-import models.responce.suite.post.Result;
 import models.responce.suite.post.SuiteCreateResponseModel;
-import org.assertj.core.api.AbstractObjectAssert;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Tags;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import tests.api.steps.ProjectSteps;
-import tests.api.steps.SuiteSteps;
+import api.specs.steps.ProjectSteps;
+import api.specs.steps.SuiteSteps;
 
+import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
-import static tests.api.steps.SuiteSteps.deleteSuite;
-import static tests.api.steps.SuiteSteps.getSuites;
+import static api.specs.steps.SuiteSteps.deleteSuite;
+import static api.specs.steps.SuiteSteps.getSuites;
 
 @Owner("mkarpovich")
 @Feature("Suite")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class ApiSuiteTest extends BaseTest {
+
+    @BeforeEach
+    void deleteAllProjectsIfNeed() {
+        step("Удалить все существующие проекты",
+                ()-> projectPage.deleteAllProjects());
+    }
 
     @Test
     @DisplayName("Создать сьюту")
@@ -43,11 +45,11 @@ public class ApiSuiteTest extends BaseTest {
 
         SuiteRequestModel suiteRequest = CreateSuiteFactory.getRandomData();
         var suiteResponse = SuiteSteps.createSuite(projectCode, suiteRequest, 200);
-        SuiteGetSuitesResponseModel getSuiteResponse = suiteResponse.extract().as(SuiteGetSuitesResponseModel.class);
+        SuiteCreateResponseModel getSuiteResponse = suiteResponse.extract().as(SuiteCreateResponseModel.class);
 
         assertThat(getSuiteResponse)
                 .isNotNull()
-                .extracting(SuiteGetSuitesResponseModel::isStatus)
+                .extracting(SuiteCreateResponseModel::isStatus)
                 .isEqualTo(true);
     }
 
@@ -97,10 +99,6 @@ public class ApiSuiteTest extends BaseTest {
         SuiteGetSuitesResponseModel suiteResponse = getSuites(projectCode, 200)
                 .extract().as(SuiteGetSuitesResponseModel.class);
 
-        AbstractObjectAssert<?, Integer> count = assertThat(suiteResponse)
-                .extracting(SuiteGetSuitesResponseModel::getResult)
-                .extracting(models.responce.suite.get.Result::getCount);
-
         assertThat(suiteResponse)
                 .isNotNull()
                 .extracting(SuiteGetSuitesResponseModel::isStatus)
@@ -108,7 +106,6 @@ public class ApiSuiteTest extends BaseTest {
 
         assertThat(suiteResponse)
                 .extracting(SuiteGetSuitesResponseModel::getResult)
-                .extracting(models.responce.suite.get.Result::getCount)
                 .isNotNull();
     }
 }

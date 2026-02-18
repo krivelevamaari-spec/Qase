@@ -1,16 +1,12 @@
-package tests.api.steps;
+package api.specs.steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import models.request.project.post.ProjectRequestModel;
-import models.responce.project.get.EntitiesItem;
-import models.responce.project.get.Entity;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static tests.api.specs.QASESpec.REQ_SPEC;
-import static tests.api.specs.QASESpec.responseWithStatusCode;
+import static api.specs.QASESpec.REQ_SPEC;
+import static api.specs.QASESpec.responseWithStatusCode;
 
 public class ProjectSteps {
 

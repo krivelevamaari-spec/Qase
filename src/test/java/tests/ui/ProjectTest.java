@@ -5,7 +5,7 @@ import models.CreateProjectFactory;
 import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import tests.api.steps.ProjectSteps;
+import api.specs.steps.ProjectSteps;
 
 import static io.qameta.allure.Allure.step;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @Feature("Project")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class ProjectTest extends BaseTest {
+
+    @BeforeEach
+    void deleteAllProjectsIfNeed() {
+        step("Удалить все существующие проекты",
+                ()-> projectPage.deleteAllProjects());
+    }
 
     @BeforeEach
     void openLoginPage() {
