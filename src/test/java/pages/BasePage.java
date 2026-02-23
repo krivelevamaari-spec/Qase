@@ -4,8 +4,8 @@ import models.responce.project.get.Entity;
 import models.responce.project.get.ProjectGetResponseModel;
 
 import static com.codeborne.selenide.Selenide.open;
-import static api.specs.steps.ProjectSteps.deleteProject;
-import static api.specs.steps.ProjectSteps.getProjects;
+import static api.steps.ProjectSteps.deleteProject;
+import static api.steps.ProjectSteps.getProjects;
 
 public class BasePage {
 

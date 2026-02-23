@@ -5,10 +5,11 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Flaky {
+public enum Status {
 
-    YES("Yes"),
-    NO("No");
+    ACTUAL("Actual"),
+    DRAFT("Draft"),
+    DEPRECATED("Deprecated");
 
     private final String value;
 }

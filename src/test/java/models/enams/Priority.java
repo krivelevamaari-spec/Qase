@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Priority implements HasValue {
+public enum Priority {
 
     HIGH("High"),
     MEDIUM("Medium"),

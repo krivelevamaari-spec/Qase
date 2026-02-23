@@ -1,4 +1,4 @@
-package models;
+package factory;
 
 import com.github.javafaker.Faker;
 import models.request.suite.post.SuiteRequestModel;

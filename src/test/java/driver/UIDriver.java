@@ -14,7 +14,7 @@ public class UIDriver {
         Configuration.browserSize = Driver.config.getBrowserSize();
         Configuration.baseUrl = Driver.config.getBaseUrl();
         Configuration.browser = Driver.config.getBrowser();
-        Configuration.timeout = 10000;
+        Configuration.timeout = 30000;
         Configuration.pollingInterval = 200;
         MutableCapabilities capabilities = new DesiredCapabilities();
 

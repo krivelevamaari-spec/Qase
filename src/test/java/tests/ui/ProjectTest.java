@@ -1,14 +1,13 @@
 package tests.ui;
 
+import api.steps.ProjectSteps;
+import factory.CreateProjectFactory;
 import io.qameta.allure.*;
-import models.CreateProjectFactory;
 import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import api.specs.steps.ProjectSteps;
 
 import static io.qameta.allure.Allure.step;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @Owner("mkarpovich")
 @Feature("Project")
@@ -16,15 +15,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ProjectTest extends BaseTest {
 
     @BeforeEach
-    void deleteAllProjectsIfNeed() {
-        step("Удалить все существующие проекты",
-                ()-> projectPage.deleteAllProjects());
-    }
-
-    @BeforeEach
     void openLoginPage() {
         step("Открыть страницу авторизации",
-                ()-> loginPage.openPage("/login"));
+                () -> loginPage.openPage("/login"));
     }
 
     @Test
@@ -49,8 +42,6 @@ public class ProjectTest extends BaseTest {
         projectPage.createProject(createProject)
                 .clickSaveProjectButton()
                 .checkThatTheProjectHasBeenCreated(expectedProjectCode);
-
-        projectFactory.deleteProject(expectedProjectCode, 200);
     }
 
     @Test
@@ -73,7 +64,7 @@ public class ProjectTest extends BaseTest {
 
         projectPage.createProject(notCreateProject)
                 .clickSaveProjectButton()
-                .checkThatTheProjectHasBeenNotCreated();
+                .checkThatTheProjectHasBeenNotCreated("The code format is invalid.");
     }
 
     @Test

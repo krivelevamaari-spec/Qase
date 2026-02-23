@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Layer implements HasValue {
+public enum Layer {
 
     API("API"),
     UNIT("Unit"),

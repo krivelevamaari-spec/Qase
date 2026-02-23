@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Type implements HasValue {
+public enum Type {
 
     FUNCTIONAL("Functional"),
     SMOKE("Smoke"),

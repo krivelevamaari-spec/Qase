@@ -1,8 +1,8 @@
 package tests.api;
 
 import io.qameta.allure.*;
-import models.CreateProjectFactory;
-import models.CreateSuiteFactory;
+import factory.CreateProjectFactory;
+import factory.CreateSuiteFactory;
 import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
@@ -10,24 +10,18 @@ import models.responce.suite.get.SuiteGetSuitesResponseModel;
 import models.responce.suite.post.SuiteCreateResponseModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import api.specs.steps.ProjectSteps;
-import api.specs.steps.SuiteSteps;
+import api.steps.ProjectSteps;
+import api.steps.SuiteSteps;
 
 import static io.qameta.allure.Allure.step;
 import static org.assertj.core.api.Assertions.assertThat;
-import static api.specs.steps.SuiteSteps.deleteSuite;
-import static api.specs.steps.SuiteSteps.getSuites;
+import static api.steps.SuiteSteps.deleteSuite;
+import static api.steps.SuiteSteps.getSuites;
 
 @Owner("mkarpovich")
 @Feature("Suite")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class ApiSuiteTest extends BaseTest {
-
-    @BeforeEach
-    void deleteAllProjectsIfNeed() {
-        step("Удалить все существующие проекты",
-                ()-> projectPage.deleteAllProjects());
-    }
 
     @Test
     @DisplayName("Создать сьюту")

@@ -1,13 +1,15 @@
 package tests.ui;
 
+import api.steps.CaseSteps;
 import io.qameta.allure.*;
-import models.CreateProjectFactory;
-import models.enams.Behavior;
+import factory.CreateCaseFactory;
+import factory.CreateProjectFactory;
+import factory.model.CaseFactoryModel;
+import models.request.cases.CaseRequestModel;
 import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
-import pages.pageElements.DropDown;
 import tests.BaseTest;
-import api.specs.steps.ProjectSteps;
+import api.steps.ProjectSteps;
 
 import static io.qameta.allure.Allure.step;
 
@@ -15,12 +17,6 @@ import static io.qameta.allure.Allure.step;
 @Feature("Case")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class CaseTest extends BaseTest {
-
-    @BeforeEach
-    void deleteAllProjectsIfNeed() {
-        step("Удалить все существующие проекты",
-                ()-> projectPage.deleteAllProjects());
-    }
 
     @BeforeEach
     void openLoginPage() {
@@ -46,10 +42,43 @@ public class CaseTest extends BaseTest {
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
 
-        casePage.openCaseCreation()
-                .checkPageTitle("Create test case");
+        CaseFactoryModel data = CreateCaseFactory.getRandomUiData();
 
-        DropDown.selectRandom("behavior", Behavior.values());
-        DropDown.selectRandom("flaky", models.enams.Flaky.values());
+        projectPage.openProjectByCode(projectCode);
+
+        casePage.openCaseCreation()
+                .checkPageTitle("Create test case")
+                .createNewCase(data)
+                .clickNewStepButton()
+                .writeNewStep("Открыть страницу авторизации")
+                .clickSaveButton()
+                .checkThatCaseIsCreated();
+    }
+
+    @Test
+    @DisplayName("Проверка удаления тест кейса")
+    @Story("Удаление тест кейса")
+    @Severity(SeverityLevel.NORMAL)
+    @Tags({
+            @Tag("NORMAL"),
+            @Tag("UI-test"),
+            @Tag("Case")
+    })
+    public void caseMustBeDeleted() {
+        loginPage.setValueEmailInput(email)
+                .setValuePasswordInput(password)
+                .clickSignInButton();
+
+        ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
+        ProjectSteps.createProject(projectData, 200);
+        String projectCode = projectData.getCode();
+
+        CaseRequestModel caseRequest = CreateCaseFactory.getRandomApiData();
+        var caseResponse = CaseSteps.createCase(projectCode, caseRequest, 200);
+
+        projectPage.openProjectByCode(projectCode);
+
+        casePage.clickCheckBox()
+                .clickDeleteButton();
     }
 }

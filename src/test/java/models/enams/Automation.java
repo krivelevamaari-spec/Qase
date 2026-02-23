@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum AutomationStatus implements HasValue {
+public enum Automation {
 
     AUTOMATED("Automated"),
     MANUAL("Manual");

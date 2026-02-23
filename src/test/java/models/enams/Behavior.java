@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Behavior implements HasValue {
+public enum Behavior {
 
     POSITIVE("Positive"),
     NEGATIVE("Negative"),

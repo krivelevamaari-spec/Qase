@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 public class SuiteGetSuitesResponseModel {
+
     private boolean status;
     private Result result;
 }

@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Severity implements HasValue {
+public enum Severity {
 
     MAJOR("Major"),
     MINOR("Minor"),
