@@ -78,7 +78,7 @@ clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
 # <a name="Уведомления в Telegram">Уведомления в Telegram</a>
 Telegram-бот отправляет краткий отчет в указанный Telegram-чат по результатам каждой сборки.
 <p  align="center">
-<img src="images/screens/telegramNotification.png" alt="TelegramNotification" width="550">
+<img src="images/telegramNotification.png" alt="TelegramNotification" width="550">
 </p>
 
 
