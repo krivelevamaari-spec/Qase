@@ -16,8 +16,7 @@ public class ProjectTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        step("Открыть страницу авторизации",
-                () -> loginPage.openPage("/login"));
+        login(email,password);
     }
 
     @Test
@@ -30,10 +29,6 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeCreated() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         projectPage.clickCreateProjectButton();
 
         ProjectRequestModel createProject = CreateProjectFactory.getRandomData();
@@ -54,10 +49,6 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeNotCreated() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         projectPage.clickCreateProjectButton();
 
         ProjectRequestModel notCreateProject = CreateProjectFactory.getWrongRandomData();
@@ -77,10 +68,6 @@ public class ProjectTest extends BaseTest {
             @Tag("Project")
     })
     public void projectMustBeDeleted() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         String projectTitle = projectData.getTitle();
 

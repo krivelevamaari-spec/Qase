@@ -15,12 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
 public class LoginTest extends BaseTest {
 
-    @BeforeEach
-    void openLoginPage() {
-        step("Открыть страницу авторизации",
-                () ->  loginPage.openPage("/login"));
-    }
-
     @Test
     @DisplayName("Проверка успешной авторизации пользователя при валидных логине и пароле")
     @Story("Вход по логину и паролю")
@@ -31,9 +25,7 @@ public class LoginTest extends BaseTest {
             @Tag("Authorization")
     })
     public void userMustBeAutWithValidLoginAndPassword() {
-        loginPage.setValueEmailInput("akytat@mailto.plus")
-                .setValuePasswordInput("20091989Qwe!!!")
-                .clickSignInButton();
+        login(email,password);
 
         step("Ожидаемый результат: открыта страница Projects", () -> {
             Assertions.assertAll(

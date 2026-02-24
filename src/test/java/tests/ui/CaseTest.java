@@ -20,8 +20,7 @@ public class CaseTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        step("Открыть страницу авторизации",
-                ()-> loginPage.openPage("/login"));
+        login(email,password);
     }
 
     @Test
@@ -34,10 +33,6 @@ public class CaseTest extends BaseTest {
             @Tag("Case")
     })
     public void caseMustBeCreated() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
@@ -65,10 +60,6 @@ public class CaseTest extends BaseTest {
             @Tag("Case")
     })
     public void caseMustBeDeleted() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();

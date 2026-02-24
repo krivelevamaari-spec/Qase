@@ -3,10 +3,12 @@ package tests;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.Credentials;
 import driver.UIDriver;
+import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
 import factory.CreateProjectFactory;
 import models.responce.project.get.Entity;
 import models.responce.project.get.ProjectGetResponseModel;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import pages.CasePage;
@@ -16,6 +18,7 @@ import pages.SuitePage;
 
 import static api.steps.ProjectSteps.deleteProject;
 import static api.steps.ProjectSteps.getProjects;
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static io.qameta.allure.Allure.step;
 
 public class BaseTest {
@@ -53,5 +56,18 @@ public class BaseTest {
                     .map(Entity::getCode)
                     .forEach(code -> deleteProject(code, 200));
         }
+    }
+
+    @Step("Аутентификация пользователя")
+    public void login(String email, String password) {
+        loginPage.openPage("/login");
+        loginPage.setValueEmailInput(email)
+                .setValuePasswordInput(password)
+                .clickSignInButton();
+    }
+
+    @AfterEach
+    void closeBrowser() {
+        closeWebDriver();
     }
 }

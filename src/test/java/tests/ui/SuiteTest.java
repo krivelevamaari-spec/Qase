@@ -19,8 +19,7 @@ public class SuiteTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        step("Открыть страницу авторизации",
-                () -> loginPage.openPage("/login"));
+        login(email,password);
     }
 
     @Test
@@ -33,10 +32,6 @@ public class SuiteTest extends BaseTest {
             @Tag("Suite")
     })
     public void suiteMustBeCreatedWithValidData() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
@@ -60,10 +55,6 @@ public class SuiteTest extends BaseTest {
             @Tag("Suite")
     })
     public void suiteMustBeDeleted() {
-        loginPage.setValueEmailInput(email)
-                .setValuePasswordInput(password)
-                .clickSignInButton();
-
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
         String projectCode = projectData.getCode();
