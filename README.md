@@ -60,7 +60,7 @@ clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
 <img src="images/jenkins.png" alt="JenkinsBuildMainPage" width="950">
 </p>
 
-Параметризованное задание Jenkins можно запустить с необходимыми параметрами ***tag***:
+Параметризованное задание Jenkins можно запустить с необходимыми параметрами ***TAG***:
 <p  align="center">
 <img src="images/jenkinsParams.gif" alt="JenkinsBuildParameters" width="950">
 </p>
@@ -68,9 +68,9 @@ clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
 Конфиденциальная информация (имена пользователей и пароли) хранится в зашифрованном виде в хранилище учетных данных Jenkins.
 И относительно безопасно передается в сборку через аргументы Gradle.
 
-After the build is done the test results are available in:
+После завершения сборки результаты тестирования будут доступны в следующем формате:
 >- <code><strong>*Allure Report*</strong></code>
 
 <p  align="center">
-<img src="images/screens/jenkinsFinishBuild.png" alt="JenkinsFinishedBuild" width="950">
+<img src="images/jenkinsFinishBuild.png" alt="JenkinsFinishedBuild" width="950">
 </p>
