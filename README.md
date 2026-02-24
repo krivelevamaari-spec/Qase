@@ -54,21 +54,19 @@ clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
 >- *API-test*
 >- *UI-test*
 
-## <a name="Запуск в Jenkins">Run in [Jenkins](http://localhost:8080/job/testhome2/)</a>
+## <a name="Запуск в Jenkins">Запуск в [Jenkins](http://localhost:8080/job/testhome2/)</a>
 Главная страница сборки:
 <p  align="center">
 <img src="images/jenkins.png" alt="JenkinsBuildMainPage" width="950">
 </p>
 
-A parametrized Jenkins job can be launched with needed ***tag*** and ***runIn***:
+Параметризованное задание Jenkins можно запустить с необходимыми параметрами ***tag***:
 <p  align="center">
-<img src="images/screens/jenkinsParams.gif" alt="JenkinsBuildParameters" width="950">
+<img src="images/jenkinsParams.gif" alt="JenkinsBuildParameters" width="950">
 </p>
 
-`project-{runIn}.properties` config files are created in the build workspace on start build.
-
-Sensitive information(login names and passwords) is stored in an encrypted form in Jenkins credential storage.\
-And relatively safe transferred to the build by gradle arguments(see [Gradle command](#GradleCommand) section, 'Additional parameters') and it's values masked in the logs.
+Конфиденциальная информация (имена пользователей и пароли) хранится в зашифрованном виде в хранилище учетных данных Jenkins.
+И относительно безопасно передается в сборку через аргументы Gradle.
 
 After the build is done the test results are available in:
 >- <code><strong>*Allure Report*</strong></code>
