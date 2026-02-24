@@ -27,8 +27,52 @@
   <code><img width="5%" title="Gradle" src="./images/icons/gradle-logo.svg"></code>
   <code><img width="5%" title="JUnit5" src="./images/icons/junit5-logo.svg"></code>
   <code><img width="5%" title="Allure Report" src="./images/icons/allure-Report-logo.svg"></code>
-  <code><img width="5%" title="Allure TestOps" src="./images/icons/allure-ee-logo.svg"></code>
   <code><img width="5%" title="Github" src="./images/icons/git-logo.svg"></code>
   <code><img width="5%" title="Jenkins" src="./images/icons/jenkins-logo.svg"></code>
   <code><img width="5%" title="Telegram" src="./images/icons/Telegram.svg"></code>
+</p>
+
+ Автотесты в этом проекте написаны на Java с использованием фреймворка Selenide.\
+`Gradle` - инструмент для сборки и автоматизации проекта.\
+`JUnit5` - фреймворк для написания и запуска автоматических тестов.\
+`REST Assured` - Java-библиотека, созданная специально для тестирования REST API.\
+`Jenkins` - CI/CD сервер, который объединяет все инструменты в единый автоматический процесс.\
+`Selenoid` - инструмент, который берет на себя всю работу с браузерами, запуская каждый из них в отдельном Docker-контейнере.\
+`Allure Report` - визуализация результатов тестирования.\
+`Telegram Bot` - уведомления о результатах тестирования.\
+
+# <a name="Запуск">Запуск</a>
+
+## <a name="Команды Gradle">Команды Gradle</a>
+Для запуска локально и в Jenkins используется следующая команда:
+```bash
+clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
+```
+
+
+`tag` - тесты с этим тегом будут выполнены:
+>- *API-test*
+>- *UI-test*
+
+## <a name="Запуск в Jenkins">Run in [Jenkins](http://localhost:8080/job/testhome2/)</a>
+Главная страница сборки:
+<p  align="center">
+<img src="images/jenkins.png" alt="JenkinsBuildMainPage" width="950">
+</p>
+
+A parametrized Jenkins job can be launched with needed ***tag*** and ***runIn***:
+<p  align="center">
+<img src="images/screens/jenkinsParams.gif" alt="JenkinsBuildParameters" width="950">
+</p>
+
+`project-{runIn}.properties` config files are created in the build workspace on start build.
+
+Sensitive information(login names and passwords) is stored in an encrypted form in Jenkins credential storage.\
+And relatively safe transferred to the build by gradle arguments(see [Gradle command](#GradleCommand) section, 'Additional parameters') and it's values masked in the logs.
+
+After the build is done the test results are available in:
+>- <code><strong>*Allure Report*</strong></code>
+
+<p  align="center">
+<img src="images/screens/jenkinsFinishBuild.png" alt="JenkinsFinishedBuild" width="950">
 </p>
