@@ -13,7 +13,6 @@ public class CaseFactoryModel {
     private String behavior;
     private String type;
     private String layer;
-    @JsonProperty("is_flaky")
     private String isFlaky;
     private String automation;
     private String status;

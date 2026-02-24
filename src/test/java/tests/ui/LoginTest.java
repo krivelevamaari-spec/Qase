@@ -50,6 +50,7 @@ public class LoginTest extends BaseTest {
     @ParameterizedTest(name = "Проверка получения сообщения об ошибке при попытке авторизации пользователя " +
             "без ввода логина: {0}, пароля: {1} и с отсутствующими данными")
     void errorMessageShouldBeVisibleWithEnterInvalidData(String email, String password) {
+        loginPage.openPage("/login");
         loginPage.setValueEmailInput(email)
                 .setValuePasswordInput(password)
                 .clickSignInButton();
@@ -71,6 +72,7 @@ public class LoginTest extends BaseTest {
     @ParameterizedTest(name = "Проверка получения сообщения об ошибке при попытке авторизации пользователя " +
             "с помощью некорректного логина: {0} и пароля: {1}")
     void alertErrorMessageShouldBeVisibleWithEnterIncorrectData(String email, String password) {
+        loginPage.openPage("/login");
         loginPage.setValueEmailInput(email)
                 .setValuePasswordInput(password)
                 .clickSignInButton();
