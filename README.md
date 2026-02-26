@@ -74,3 +74,24 @@ clean -Dtag=${TAG} -Dbrowser=${BROWSER} test
 <p  align="center">
 <img src="images/jenkinsFinishBuild.png" alt="JenkinsFinishedBuild" width="950">
 </p>
+
+# <a name="Уведомления в Telegram">Уведомления в Telegram</a>
+Telegram-бот отправляет краткий отчет в указанный Telegram-чат по результатам каждой сборки.
+<p  align="center">
+<img src="images/telegramNotification.png" alt="TelegramNotification" width="550">
+</p>
+
+
+
+# <a name="Allure отчет">Отчет о результатах в [Allure отчет](http://localhost:8080/job/testhome2/18/allure/)</a>
+
+## Главная страница
+Главная страница отчета Allure содержит следующие блоки:
+
+>- <code><strong>*ALLURE REPORT*</strong></code> - отображает дату и время проведения теста, общее количество запущенных тестов, а также диаграмму с указанием процента и количества успешных, упавших и сломавшихся в процессе выполнения тестов
+>- <code><strong>*TREND*</strong></code> - отображает тенденцию выполнения тестов для всех запусков
+>- <code><strong>*SUITES*</strong></code> - отображает распределение тестов по категориям.
+>- <code><strong>*CATEGORIES*</strong></code> - отображает распределение неудачных тестов по типам дефектов
+<p align="center">
+  <img src="images/AllureReportMain.png" alt="AllureReportMain" width="950">
+</p>
