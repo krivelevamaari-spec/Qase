@@ -16,15 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class LoginTest extends BaseTest {
 
     @Test
-    @DisplayName("Проверка успешной авторизации пользователя при валидных логине и пароле")
-    @Story("Вход по логину и паролю")
+    @Story("Authorization")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test"),
             @Tag("Authorization")
     })
-    public void userMustBeAutWithValidLoginAndPassword() {
+    @DisplayName("Проверка успешной авторизации пользователя при валидных логине и пароле")
+    public void userMustBeAuthWithValidLoginAndPassword() {
         login(email,password);
 
         step("Ожидаемый результат: открыта страница Projects", () -> {
@@ -35,7 +35,7 @@ public class LoginTest extends BaseTest {
         });
     }
 
-    @Story("Валидация полей ввода")
+    @Story("Authorization")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
@@ -49,7 +49,7 @@ public class LoginTest extends BaseTest {
     })
     @ParameterizedTest(name = "Проверка получения сообщения об ошибке при попытке авторизации пользователя " +
             "без ввода логина: {0}, пароля: {1} и с отсутствующими данными")
-    void errorMessageShouldBeVisibleWithEnterInvalidData(String email, String password) {
+    void errorMessageMustBeVisibleWithEnterInvalidData(String email, String password) {
         loginPage.openPage("/login");
         loginPage.setValueEmailInput(email)
                 .setValuePasswordInput(password)
@@ -61,7 +61,7 @@ public class LoginTest extends BaseTest {
         );
     }
 
-    @Story("Валидация полей ввода")
+    @Story("Authorization")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
@@ -71,7 +71,7 @@ public class LoginTest extends BaseTest {
     @CsvFileSource(resources = "/testData/loginTestData/incorrectDates.scv")
     @ParameterizedTest(name = "Проверка получения сообщения об ошибке при попытке авторизации пользователя " +
             "с помощью некорректного логина: {0} и пароля: {1}")
-    void alertErrorMessageShouldBeVisibleWithEnterIncorrectData(String email, String password) {
+    void alertErrorMessageMustBeVisibleWithEnterIncorrectData(String email, String password) {
         loginPage.openPage("/login");
         loginPage.setValueEmailInput(email)
                 .setValuePasswordInput(password)

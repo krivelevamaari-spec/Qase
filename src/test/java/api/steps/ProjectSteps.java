@@ -4,9 +4,9 @@ import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import models.request.project.post.ProjectRequestModel;
 
-import static io.restassured.RestAssured.given;
 import static api.specs.QASESpec.REQ_SPEC;
 import static api.specs.QASESpec.responseWithStatusCode;
+import static io.restassured.RestAssured.given;
 
 public class ProjectSteps {
 

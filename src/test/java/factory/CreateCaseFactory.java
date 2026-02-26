@@ -1,9 +1,9 @@
 package factory;
 
 import com.github.javafaker.Faker;
-import models.enams.*;
 import factory.model.CaseFactoryModel;
-import models.request.cases.CaseRequestModel;
+import models.enams.*;
+import models.request.cases.post.CaseRequestModel;
 
 
 public class CreateCaseFactory {

@@ -9,7 +9,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class UIDriver {
 
-
     public static void configuration() {
         Configuration.browserSize = Driver.config.getBrowserSize();
         Configuration.baseUrl = Driver.config.getBaseUrl();
@@ -18,7 +17,7 @@ public class UIDriver {
         Configuration.pollingInterval = 200;
         MutableCapabilities capabilities = new DesiredCapabilities();
 
-        switch (Driver.config.getBrowser()){
+        switch (Driver.config.getBrowser()) {
             case "chrome":
                 setChromeOptions(capabilities);
                 break;

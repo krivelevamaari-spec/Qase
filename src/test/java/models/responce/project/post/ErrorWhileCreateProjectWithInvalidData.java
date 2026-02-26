@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ErrorWhileCreateProjectWithInvalidData {
+
     private boolean status;
     private String errorMessage;
 }

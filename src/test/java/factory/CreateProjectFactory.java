@@ -1,9 +1,9 @@
 package factory;
 
 
-import models.request.project.post.ProjectRequestModel;
-import com.github.javafaker.Faker;
 import api.steps.ProjectSteps;
+import com.github.javafaker.Faker;
+import models.request.project.post.ProjectRequestModel;
 
 public class CreateProjectFactory {
 

@@ -3,9 +3,9 @@ package tests;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import config.Credentials;
 import driver.UIDriver;
+import factory.CreateProjectFactory;
 import io.qameta.allure.Step;
 import io.qameta.allure.selenide.AllureSelenide;
-import factory.CreateProjectFactory;
 import models.responce.project.get.Entity;
 import models.responce.project.get.ProjectGetResponseModel;
 import org.junit.jupiter.api.AfterEach;
@@ -19,7 +19,6 @@ import pages.SuitePage;
 import static api.steps.ProjectSteps.deleteProject;
 import static api.steps.ProjectSteps.getProjects;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
-import static io.qameta.allure.Allure.step;
 
 public class BaseTest {
 

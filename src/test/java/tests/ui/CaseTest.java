@@ -1,17 +1,15 @@
 package tests.ui;
 
 import api.steps.CaseSteps;
-import io.qameta.allure.*;
+import api.steps.ProjectSteps;
 import factory.CreateCaseFactory;
 import factory.CreateProjectFactory;
 import factory.model.CaseFactoryModel;
-import models.request.cases.CaseRequestModel;
+import io.qameta.allure.*;
+import models.request.cases.post.CaseRequestModel;
 import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
-import api.steps.ProjectSteps;
-
-import static io.qameta.allure.Allure.step;
 
 @Owner("mkarpovich")
 @Feature("Case")
@@ -20,18 +18,18 @@ public class CaseTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        login(email,password);
+        login(email, password);
     }
 
     @Test
-    @DisplayName("Проверка создания тест кейса")
-    @Story("Создание тест кейса")
+    @Story("Case")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test"),
             @Tag("Case")
     })
+    @DisplayName("Проверка создания тест-кейса")
     public void caseMustBeCreated() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
@@ -51,14 +49,14 @@ public class CaseTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка удаления тест кейса")
-    @Story("Удаление тест кейса")
+    @Story("Case")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("UI-test"),
             @Tag("Case")
     })
+    @DisplayName("Проверка удаления тест кейса")
     public void caseMustBeDeleted() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);

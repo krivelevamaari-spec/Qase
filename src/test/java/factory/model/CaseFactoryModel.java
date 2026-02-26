@@ -1,12 +1,12 @@
 package factory.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
 public class CaseFactoryModel {
+
     private String title;
     private String severity;
     private String priority;
@@ -16,6 +16,4 @@ public class CaseFactoryModel {
     private String isFlaky;
     private String automation;
     private String status;
-
-
 }

@@ -7,8 +7,6 @@ import models.request.project.post.ProjectRequestModel;
 import org.junit.jupiter.api.*;
 import tests.BaseTest;
 
-import static io.qameta.allure.Allure.step;
-
 @Owner("mkarpovich")
 @Feature("Project")
 @Link(value = "My_GitHab", url = "https://github.com/krivelevamaari-spec/Qase")
@@ -16,18 +14,18 @@ public class ProjectTest extends BaseTest {
 
     @BeforeEach
     void openLoginPage() {
-        login(email,password);
+        login(email, password);
     }
 
     @Test
-    @DisplayName("Проверка создания нового проекта с валидными данными")
-    @Story("Создание нового проекта")
+    @Story("Project")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test"),
             @Tag("Project")
     })
+    @DisplayName("Проверка создания нового проекта с валидными данными")
     public void projectMustBeCreated() {
         projectPage.clickCreateProjectButton();
 
@@ -40,14 +38,14 @@ public class ProjectTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка валидации полей при создании проекта с некорректными данными")
-    @Story("Обработка ошибок при создании проекта")
+    @Story("Project")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("UI-test"),
             @Tag("Project")
     })
+    @DisplayName("Проверка валидации полей при создании проекта с некорректными данными")
     public void projectMustBeNotCreated() {
         projectPage.clickCreateProjectButton();
 
@@ -59,14 +57,14 @@ public class ProjectTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка удаления проекта")
-    @Story("Удаление проекта")
+    @Story("Project")
     @Severity(SeverityLevel.BLOCKER)
     @Tags({
             @Tag("BLOCKER"),
             @Tag("UI-test"),
             @Tag("Project")
     })
+    @DisplayName("Проверка удаления проекта")
     public void projectMustBeDeleted() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         String projectTitle = projectData.getTitle();

@@ -1,22 +1,24 @@
 package tests.api;
 
-import io.qameta.allure.*;
+import api.steps.ProjectSteps;
+import api.steps.SuiteSteps;
 import factory.CreateProjectFactory;
 import factory.CreateSuiteFactory;
+import io.qameta.allure.*;
 import models.request.project.post.ProjectRequestModel;
 import models.request.suite.post.SuiteRequestModel;
 import models.responce.suite.delete.SuiteDeleteResponseModel;
 import models.responce.suite.get.SuiteGetSuitesResponseModel;
 import models.responce.suite.post.SuiteCreateResponseModel;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 import tests.BaseTest;
-import api.steps.ProjectSteps;
-import api.steps.SuiteSteps;
 
-import static io.qameta.allure.Allure.step;
-import static org.assertj.core.api.Assertions.assertThat;
 import static api.steps.SuiteSteps.deleteSuite;
 import static api.steps.SuiteSteps.getSuites;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Owner("mkarpovich")
 @Feature("Suite")
@@ -24,14 +26,14 @@ import static api.steps.SuiteSteps.getSuites;
 public class ApiSuiteTest extends BaseTest {
 
     @Test
-    @DisplayName("Создать сьюту")
-    @Story("Список Suite")
+    @Story("Suite")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Suite")
     })
+    @DisplayName("Создать сьюту")
     void suiteMustBeCreatedWithApi() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
@@ -49,14 +51,14 @@ public class ApiSuiteTest extends BaseTest {
 
 
     @Test
-    @DisplayName("Удалить сьюту")
-    @Story("Список Suite")
+    @Story("Suite")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Suite")
     })
+    @DisplayName("Удалить сьюту")
     void suiteMustBeDeletedWithApi() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
@@ -77,14 +79,14 @@ public class ApiSuiteTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Получение списка всех сьют проекта")
-    @Story("Список Suite")
+    @Story("Suite")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Suite")
     })
+    @DisplayName("Получить список всех сьют проекта")
     void getAllSuitesByProjectCode() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);

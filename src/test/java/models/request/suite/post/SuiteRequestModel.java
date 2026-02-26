@@ -6,6 +6,7 @@ import lombok.Data;
 @Builder
 @Data
 public class SuiteRequestModel {
+
     private String title;
     private String preconditions;
     private String description;

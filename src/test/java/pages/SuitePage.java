@@ -23,7 +23,7 @@ public class SuitePage extends BasePage {
         return this;
     }
 
-    @Step("Создать сьюту")
+    @Step("Заполнить поля сьюты данными")
     public SuitePage fillFieldsToCreateSuite(SuiteRequestModel data) {
         fillInputWithData("For example: Web Application", data.getTitle());
         PRECONDITIONS_INPUT.press(data.getPreconditions());
@@ -31,7 +31,7 @@ public class SuitePage extends BasePage {
         return this;
     }
 
-    @Step("Нажать на кнопку Create")
+    @Step("Сохранить сьюту")
     public SuitePage clickCreateButton() {
         Button.clickButton("Create");
         return this;

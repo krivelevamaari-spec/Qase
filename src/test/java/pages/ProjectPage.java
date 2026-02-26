@@ -46,13 +46,13 @@ public class ProjectPage extends BasePage {
         return PROJECT_PAGE_TITLE.shouldBe(visible).getText();
     }
 
-    @Step("Нажать на кнопку Create New Project")
+    @Step("Создать проект")
     public ProjectPage clickCreateProjectButton() {
         Button.clickButton("Create new project");
         return this;
     }
 
-    @Step("Создать новый проект")
+    @Step("Заполнить поля проекта данными")
     public ProjectPage createProject(ProjectRequestModel data) {
         fillInputWithData("For example: Web Application", data.getTitle());
         fillInputWithData("For example: WA", data.getCode());
@@ -60,7 +60,7 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    @Step("Нажать на кнопку Create Project")
+    @Step("Сохранить проект")
     public ProjectPage clickSaveProjectButton() {
         clickButton("Create project");
         return this;
@@ -80,7 +80,7 @@ public class ProjectPage extends BasePage {
         return this;
     }
 
-    @Step("Удалить созданный проект")
+    @Step("Удалить проект")
     public ProjectPage deleteCreatedProject() {
         BURGER_MENU.shouldBe(visible).click();
         REMOVE_BUTTON.shouldBe(visible).click();

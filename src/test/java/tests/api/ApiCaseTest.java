@@ -4,16 +4,12 @@ import api.steps.CaseSteps;
 import api.steps.ProjectSteps;
 import factory.CreateCaseFactory;
 import factory.CreateProjectFactory;
-import factory.model.CaseFactoryModel;
 import io.qameta.allure.*;
-import models.request.cases.CaseRequestModel;
+import models.request.cases.post.CaseRequestModel;
 import models.request.project.post.ProjectRequestModel;
 import models.responce.cases.delete.CaseDeleteResponseModel;
 import models.responce.cases.get.CaseGetCasesResponseModel;
 import models.responce.cases.post.CaseCreateResponseModel;
-import models.responce.suite.delete.SuiteDeleteResponseModel;
-import models.responce.suite.get.SuiteGetSuitesResponseModel;
-import models.responce.suite.post.SuiteCreateResponseModel;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Tags;
@@ -22,7 +18,6 @@ import tests.BaseTest;
 
 import static api.steps.CaseSteps.deleteCase;
 import static api.steps.CaseSteps.getCases;
-import static api.steps.SuiteSteps.getSuites;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Owner("mkarpovich")
@@ -31,14 +26,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ApiCaseTest extends BaseTest {
 
     @Test
-    @DisplayName("Создать тест кейс")
-    @Story("Список Case")
+    @Story("Case")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Case")
     })
+    @DisplayName("Создать тест-кейс")
     void caseMustBeCreatedWithApi() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
@@ -55,14 +50,14 @@ public class ApiCaseTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Удалить тест кейс")
-    @Story("Список Case")
+    @Story("Case")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Case")
     })
+    @DisplayName("Удалить тест-кейс")
     void caseMustBeDeletedWithApi() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
@@ -82,14 +77,14 @@ public class ApiCaseTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Получение списка всех тест кейсов проекта")
-    @Story("Список Case")
+    @Story("Case")
     @Severity(SeverityLevel.NORMAL)
     @Tags({
             @Tag("NORMAL"),
             @Tag("API-test"),
             @Tag("Case")
     })
+    @DisplayName("Получить список всех тест-кейсов проекта")
     void getAllCasesByProjectCode() {
         ProjectRequestModel projectData = CreateProjectFactory.getRandomData();
         ProjectSteps.createProject(projectData, 200);
